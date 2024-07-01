@@ -1,3 +1,6 @@
+//// NOT USED YET
+
+/*
 const app = express();
 const pool = require("./db");     ////this brings in the Pool stuff in db.js. allows us to run queries with postgres
 
@@ -60,3 +63,5 @@ app.delete("/drills/:id", async(request, response) => {
         console.error(err.message);
     }
 });
+
+*/
