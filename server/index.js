@@ -13,10 +13,11 @@ app.use(express.json()); ///this allows us to access json data
 //create a drill
 app.post("/drills", async(request, response) => {
     try{
-        const { name } = request.body;
-
+        const { name } = request.body.name;
+        const { description } = request.body.description;
+        const { duration } = request.body.duration;
         //await - waits for function to complete before continuing
-        const newDrill = await pool.query("INSERT INTO drills (name) VALUES($1) RETURNING *", [name]);
+        const newDrill = await pool.query("INSERT INTO drills (name, description, duration) VALUES($1, $2, $3) RETURNING *", [name, description, duration]);
         //////INSERT INTO drills (description) VALUES($1) RETURNING * is SQL being sent to database
         response.json(newDrill.rows[0]);
     } catch (err) {
@@ -39,25 +40,19 @@ app.get("/drills/:id", async(request, response) => {
     try{
         const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
         const drill =  await pool.query("SELECT * FROM drills WHERE drill_id = $1", [id]);
-        response.json(newDrill.rows[0]);
+        response.json(drill.rows[0]);
     } catch (err) {
         console.error(err.message);
     }
 });
 
-/////// EDIT NAME
+/////// EDIT 
 app.put("/drills/:id", async(request, response) => {
     try{
         const { id } = request.params; /// notice this is the same from the GET code, because we need the ID to get it 
         const { name } = request.body.name; /// notice this is the same from the POST code, because we're sending a new name 
         const { description } = request.body.description;
         const { duration } = request.body.duration;
-        // console.log('request.body is');
-        // console.log(request.body);
-        // console.log(typeof request.body);
-        // console.log(request.body.description);
-        // console.log(description);
-
         const updateDrill = await pool.query("UPDATE drills SET name = $2, description = $3, duration = $4 WHERE drill_id = $1", [id, name, description,duration]);
 
         response.json("Drill updated.");
