@@ -52,12 +52,12 @@ const DrillDetail = ({drill, closeDrillDetail, onDrillUpdate}) => {
             <Typography variant="subtitle2" mb={1}>Description</Typography>
             <Typography variant="body1" mb={2}>{selectedDrill.description}</Typography>
 
-            <Typography variant="subtitle2" mb={1}>Skills practiced</Typography>
+            {/* <Typography variant="subtitle2" mb={1}>Skills practiced</Typography>
             <Stack direction="row" spacing={1} mb={2}>
                 <Chip label="Example 1"/>
                 <Chip label="Example 2" />
                 <Chip label="Example 3" />
-            </Stack>
+            </Stack> */}
 
             <Typography variant="subtitle2" mb={1}>Duration (minutes)</Typography>
             <Typography variant="body1" mb={2}>{selectedDrill.duration}</Typography>

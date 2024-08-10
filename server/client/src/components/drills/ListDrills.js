@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { Typography, Paper, Button } from '@mui/material';
+import { Paper, Button } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { OpenInFull, Close } from '@mui/icons-material';
 
@@ -33,7 +33,7 @@ const ListDrills = ({drills, requestRefresh}) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell>Skills Practiced</TableCell>
+                            {/* <TableCell>Skills Practiced</TableCell> */}
                             <TableCell>Duration (minutes)</TableCell>
                             <TableCell>View Details</TableCell>               
                         </TableRow>
@@ -42,7 +42,7 @@ const ListDrills = ({drills, requestRefresh}) => {
                         {drills.map(drill =>
                         <TableRow key={drill.drill_id}>
                             <TableCell>{drill.name}</TableCell>
-                            <TableCell></TableCell>
+                            {/* <TableCell>Skills will be here later</TableCell> */}
                             <TableCell>{drill.duration}</TableCell>
                             <TableCell>
                             <Button

@@ -4,8 +4,6 @@ import { Container, Paper } from '@mui/material';
 import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Button from '@mui/material/Button';
 
-import AddSkill from './AddSkill.js';
-
 // import EditSkill from './EditSkill.js';
 
 const ListSkills = () => {
@@ -40,9 +38,7 @@ const ListSkills = () => {
     }, []);
 
     return(
-        <Container>
-        <h2>All Skills</h2>
-        <AddSkill/>
+        <>
         <TableContainer
         component={Paper}>
         <Table>
@@ -70,7 +66,7 @@ const ListSkills = () => {
             </TableBody>
         </Table>
         </TableContainer>
-        </Container>
+        </>
     )
 }
 

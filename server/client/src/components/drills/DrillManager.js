@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
+import { Box, Typography } from '@mui/material';
 import AddEditDrill from "./AddEditDrill.js";
 import ListDrills from './ListDrills.js';
 
-const DrillsManager = () => {
+const DrillManager = () => {
     const [drills, setDrills] = useState([])
     const [refreshFlag, setRefreshFlag] = useState(false)
 
@@ -24,10 +24,13 @@ const DrillsManager = () => {
 
     return(
         <>
-        <AddEditDrill showInModal={true} onDrillUpdate={() => setRefreshFlag(!refreshFlag)}></AddEditDrill>
+        <Typography variant="h4" mb={4}>Drill Library</Typography>
+        <Box>
+            <AddEditDrill showInModal={true} onDrillUpdate={() => setRefreshFlag(!refreshFlag)}/>
+        </Box>
         <ListDrills drills={drills} requestRefresh={() => setRefreshFlag(!refreshFlag)}></ListDrills>
         </>
     )
 }
 
-export default DrillsManager;
+export default DrillManager;
