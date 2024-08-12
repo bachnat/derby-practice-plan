@@ -10,6 +10,10 @@ app.use(express.json()); ///this allows us to access json data
 
 
 ///////  ROUTES  ///////
+
+////////////////////////////////////
+//////////// DRILLS
+////////////////////////////////////
 //create a drill
 app.post("/drills", async(request, response) => {
     try{
@@ -71,9 +75,9 @@ app.delete("/drills/:id", async(request, response) => {
     }
 });
 
-////////////
+////////////////////////////////////
 //////////// SKILLS
-////////////
+////////////////////////////////////
 app.post("/skills", async(request, response) => {
     try{
         const { description } = request.body;
@@ -121,6 +125,69 @@ app.delete("/skills/:id", async(request, response) => {
         const { id } = request.params; 
         const deleteSkill =  await pool.query("DELETE FROM skills WHERE skill_id = $1", [id]);
         response.json("Skill deleted.");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+////////////////////////////////////
+//////////// PRACTICES
+////////////////////////////////////
+
+app.post("/practices", async(request, response) => {
+    try{
+        const { name } = request.body.name;
+        // const { description } = request.body.description;
+        // const { duration } = request.body.duration;
+        // const newDrill = await pool.query("INSERT INTO practices (practice_name, practice_date, skill_level, leader, notes) VALUES($1, $2, $3, $4, $5) RETURNING *", [name, date, skill_level, leader, notes]);
+        const newPractice = await pool.query("INSERT INTO practices (practice_name) VALUES($1) RETURNING *", [name]);
+        response.json(newPractice.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+}); 
+
+app.get("/practices", async(request, response) => {
+    try{
+        const allPractices = await pool.query("SELECT * FROM practices");
+        console.log(allPractices);
+        response.json(allPractices.rows);
+        
+    } catch (err) {
+        console.error(err.message);
+    } 
+});
+
+app.get("/practices/:id", async(request, response) => {
+    try{
+        const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
+        const practice =  await pool.query("SELECT * FROM practices WHERE practice_id = $1", [id]);
+        response.json(practice.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+/////// EDIT 
+// app.put("/practices/:id", async(request, response) => {
+//     try{
+//         const { id } = request.params; /// notice this is the same from the GET code, because we need the ID to get it 
+//         const { name } = request.body.name; /// notice this is the same from the POST code, because we're sending a new name 
+//         const { description } = request.body.description;
+//         const { duration } = request.body.duration;
+//         const updateDrill = await pool.query("UPDATE drills SET name = $2, description = $3, duration = $4 WHERE drill_id = $1", [id, name, description,duration]);
+
+//         response.json("Drill updated.");
+//     } catch (err) {
+//         console.error(err.message);
+//     }
+// });
+
+app.delete("/practices/:id", async(request, response) => {
+    try{
+        const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
+        const deletePractice =  await pool.query("DELETE FROM practices WHERE practice_id = $1", [id]);
+        response.json("Practice deleted.");
     } catch (err) {
         console.error(err.message);
     }

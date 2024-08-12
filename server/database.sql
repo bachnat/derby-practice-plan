@@ -11,3 +11,12 @@ CREATE TABLE skills(
     skill_id SERIAL PRIMARY KEY, 
     name VARCHAR(255)
 ); 
+
+CREATE TABLE practices(
+practice_id SERIAL PRIMARY KEY,
+practice_name VARCHAR(100),
+practice_date date,
+skill_level VARCHAR(15),
+leader VARCHAR(30),
+notes VARCHAR(500)
+);

@@ -154,7 +154,7 @@ const AddEditDrill = ({drill, closeEditor, showInModal, onDrillUpdate}) => {
             <Button
                     variant="contained"
                      onClick={handleOpen}
-                >Add new drill</Button>
+                >Create drill</Button>
 
             <Modal
             aria-labelledby="unstyled-modal-title"

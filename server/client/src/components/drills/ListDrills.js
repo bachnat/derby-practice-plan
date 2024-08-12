@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { Paper, Button } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
-import { OpenInFull, Close } from '@mui/icons-material';
+import { OpenInFull } from '@mui/icons-material';
 
 import DrillDetail from './DrillDetail.js';
 
@@ -26,7 +26,7 @@ const ListDrills = ({drills, requestRefresh}) => {
     }
 
     return(
-        <Grid container component={Paper} spacing={4}>
+        <Grid container spacing={4}>
             <Grid xs={selectedDrill ? 7 : 12}>
                 <TableContainer>
                 <Table>
