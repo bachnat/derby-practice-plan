@@ -6,11 +6,9 @@ const pool = require("./db");     ////this brings in the Pool stuff in db.js. al
 
 app.use(cors())
 app.use(express.json()); ///this allows us to access json data
-
-
+app.use(express.static('client/build'));
 
 ///////  ROUTES  ///////
-
 ////////////////////////////////////
 //////////// DRILLS
 ////////////////////////////////////
