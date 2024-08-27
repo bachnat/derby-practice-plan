@@ -39,13 +39,12 @@ const ListSkills = () => {
 
     return(
         <>
-        <TableContainer
-        component={Paper}>
+        <TableContainer>
         <Table>
             <TableHead>
                 <TableRow>
                     <TableCell>Name</TableCell>
-                    <TableCell>Edit</TableCell>
+                    {/* <TableCell>Edit</TableCell> */}
                     <TableCell>Delete</TableCell>                    
                 </TableRow>
             </TableHead>
@@ -53,13 +52,12 @@ const ListSkills = () => {
                 {skills.map(skill =>
                 <TableRow key={skill.skill_id}>
                     <TableCell>{skill.name}</TableCell>
-                    <TableCell>Edit</TableCell>
+                    {/* <TableCell>Edit</TableCell> */}
                     <TableCell>
                         <Button
                             variant="outlined"
                             onClick={() => deleteSkill(skill.skill_id)}
                         >Delete</Button>
-                        {/* why isn't this its own component? */}
                     </TableCell>
                 </TableRow>
                 )}             

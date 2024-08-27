@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Stack, Typography, Modal, Paper } from '@mui/material';
 
 
-const AddEditDrill = ({drill, closeEditor, showInModal, onDrillUpdate}) => {
+const AddEditDrill = ({drill = null, closeEditor, showInModal, onDrillUpdate}) => {
     const [name, setName] = useState(drill?.name || "");
     const [description, setDescription] = useState(drill?.description || "");
     const [duration, setDuration] = useState(drill?.duration || "");

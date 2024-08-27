@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { TextField, Button, Box, Stack, Typography, Modal, Paper } from '@mui/material';
 
 const AddSkill = () => {
     const [name, setName] = useState("")
@@ -15,7 +16,7 @@ const AddSkill = () => {
                 body: JSON.stringify(reqBody)
             });
 
-            window.location = "/";
+            window.location = "/skills";
         } catch (error) {
             console.error(error.message)
         }
@@ -23,7 +24,7 @@ const AddSkill = () => {
 
     return(
         <>
-        <form onSubmit={addSkill}>
+        {/* <form onSubmit={addSkill}>
             <label htmlFor="addSkillInput">Add Skill</label>
             <input
             id="addSkillInput"
@@ -32,8 +33,22 @@ const AddSkill = () => {
             />
             <button
             disabled={name.length === 0 }
-            >Send</button>
-        </form>
+            >Save</button>
+        </form> */}
+
+        <TextField id="ediSkillName" 
+                label="Skill Name" 
+                variant="outlined" 
+                fullWidth
+                value={name}
+                onChange={e => setName(e.target.value)}
+            />
+
+        <Button
+            variant="contained"
+                sx={{ mr: 1 }}
+                onClick={addSkill}
+        >Save</Button>
     </>
     )
 }

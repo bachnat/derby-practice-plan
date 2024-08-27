@@ -78,9 +78,9 @@ app.delete("/drills/:id", async(request, response) => {
 ////////////////////////////////////
 app.post("/skills", async(request, response) => {
     try{
-        const { description } = request.body;
+        const { name } = request.body;
 
-        const newSkill = await pool.query("INSERT INTO skills (name) VALUES($1) RETURNING *", [description]);
+        const newSkill = await pool.query("INSERT INTO skills (name) VALUES($1) RETURNING *", [name]);
         response.json(newSkill.rows[0]);
     } catch (err) {
         console.error(err.message);

@@ -26,7 +26,9 @@ const DrillManager = () => {
         <>
         <Typography variant="h4" mb={4}>Drill Library</Typography>
         <Box>
-            <AddEditDrill showInModal={true} onDrillUpdate={() => setRefreshFlag(!refreshFlag)}/>
+            <AddEditDrill showInModal={true} onDrillUpdate={() => setRefreshFlag(!refreshFlag)}
+                sx={{mb: 2}}
+                />
         </Box>
         <ListDrills drills={drills} requestRefresh={() => setRefreshFlag(!refreshFlag)}></ListDrills>
         </>

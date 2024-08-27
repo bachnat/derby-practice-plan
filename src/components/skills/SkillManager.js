@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 
 import AddSkill from './AddSkill.js';
@@ -9,7 +9,7 @@ const SkillManager = () => {
     return(
         <>
             <Typography variant="h4" mb={4}>Derby Skills</Typography>
-            <AddSkill/>
+            <Box><AddSkill/></Box>
             <ListSkills/>
         </>
     )

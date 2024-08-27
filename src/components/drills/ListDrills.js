@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { Paper, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { OpenInFull } from '@mui/icons-material';
 
