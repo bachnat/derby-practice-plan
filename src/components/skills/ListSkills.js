@@ -11,7 +11,7 @@ const ListSkills = () => {
 
     const getSkills = async() => {
         try {
-            const response = await fetch("http://localhost:5000/skills"); //this is a GET by default 
+            const response = await fetch("http://localhost:3001/skills"); //this is a GET by default 
             const jsonData = await response.json();
             
             setSkills(jsonData);
@@ -22,7 +22,7 @@ const ListSkills = () => {
 
     const deleteSkill = async id => {
         try {
-            const deleteReq = await fetch(`http://localhost:5000/skills/${id}`,{
+            const deleteReq = await fetch(`http://localhost:3001/skills/${id}`,{
                 method: "DELETE"
             });
             

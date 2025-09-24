@@ -10,7 +10,7 @@ const AddSkill = () => {
         
         try {
             const reqBody= { name }
-            const response = await fetch("http://localhost:5000/skills",{
+            const response = await fetch("http://localhost:3001/skills",{
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(reqBody)

@@ -47,14 +47,14 @@ const AddEditDrill = ({drill = null, closeEditor, showInModal, onDrillUpdate}) =
         try {
             if(drill){
                 // edit existing drill
-                const response = await fetch(`http://localhost:5000/drills/${drill.drill_id}`, {
+                const response = await fetch(`http://localhost:3001/drills/${drill.drill_id}`, {
                     method: "PUT",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(reqBody)
                 }); 
             } else {
                 //add new drill
-                const response = await fetch("http://localhost:5000/drills",{
+                const response = await fetch("http://localhost:3001/drills",{
                     method: 'POST',
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(reqBody)
@@ -74,7 +74,7 @@ const AddEditDrill = ({drill = null, closeEditor, showInModal, onDrillUpdate}) =
 
     const deleteDrill = async id => {
         try {
-            const deleteReq = await fetch(`http://localhost:5000/drills/${id}`,{
+            const deleteReq = await fetch(`http://localhost:3001/drills/${id}`,{
                 method: "DELETE"
             });
             

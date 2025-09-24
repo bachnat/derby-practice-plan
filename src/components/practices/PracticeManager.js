@@ -10,7 +10,7 @@ const PracticeManager = () => {
 
     const getPractices = async() => {
         try {
-            const response = await fetch("http://localhost:5000/practices"); 
+            const response = await fetch("http://localhost:3001/practices"); 
             const jsonData = await response.json();
 
             setPractices(jsonData);
@@ -26,14 +26,8 @@ const PracticeManager = () => {
     return(
         <>
             <Typography variant="h4" mb={4}>Practice Plans</Typography>
-            <Button
-                component={RouterLink}
-                variant="contained"
-                to="/createpractice"
-            >Create practice</Button>
-
-            {/* <AddEditPractice showInModal /> */}
-            <ListPractices practices={practices} />
+            <AddEditPractice showInModal onPracticeUpdate={() => setRefreshFlag(!refreshFlag)} />
+            <ListPractices practices={practices} onPracticeUpdate={() => setRefreshFlag(!refreshFlag)}/>
         </>
     )
 }

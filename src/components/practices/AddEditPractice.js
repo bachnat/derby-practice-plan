@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Stack, Typography, Modal, Paper } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-const AddEditPractice = ({practice, showInModal, onpracticeUpdate}) => {
+const AddEditPractice = ({practice, showInModal, onPracticeUpdate}) => {
     const [name, setName] = useState(practice?.name || "");
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const navigate = useNavigate();
 
     const typing = async event => {
         let text = event.target.value;
@@ -23,22 +28,27 @@ const AddEditPractice = ({practice, showInModal, onpracticeUpdate}) => {
         try {
             if(practice){
                 // edit existing practice
-                const response = await fetch(`http://localhost:5000/practices/${practice.practice_id}`, {
+                const response = await fetch(`http://localhost:3001/practices/${practice.practice_id}`, {
                     method: "PUT",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(reqBody)
                 }); 
             } else {
                 //add new practice
-                const response = await fetch("http://localhost:5000/practices",{
+                const response = await fetch("http://localhost:3001/practices",{
                     method: 'POST',
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(reqBody)
                 });
             }
             
-            /////to do: go to Practice detail
-            onpracticeUpdate('add or edit');
+            if(showInModal){
+                handleClose();
+            } else {
+                navigate('/');
+            }
+
+            onPracticeUpdate('add or edit');
         } catch (error) {
             console.error(error.message);
         }
@@ -46,17 +56,18 @@ const AddEditPractice = ({practice, showInModal, onpracticeUpdate}) => {
 
     const deletepractice = async id => {
         try {
-            const deleteReq = await fetch(`http://localhost:5000/practices/${id}`,{
+            const deleteReq = await fetch(`http://localhost:3001/practices/${id}`,{
                 method: "DELETE"
             });
             
-            onpracticeUpdate('delete');
+            onPracticeUpdate('delete');
         } catch (error) {
             console.error(error.message);
         }
     };
 
-    return(
+    const returnFormBody = () => {
+        return(
         <>
         <Typography variant="h5" mb={2}>{practice ? "Edit" : "Add"} practice</Typography>
         <form 
@@ -79,11 +90,12 @@ const AddEditPractice = ({practice, showInModal, onpracticeUpdate}) => {
                     //  disabled={!enableSave}
                      onClick={save}
                 >Save</Button>
-
+        
             <Button
                 component={RouterLink}
                 variant="text"
                 to="/"
+                onClick={showInModal ? handleClose : () => navigate('/')}
             >Cancel</Button>
                 </Box>
                 
@@ -97,6 +109,44 @@ const AddEditPractice = ({practice, showInModal, onpracticeUpdate}) => {
             </Box>
             </Stack>
             </form>
+        </>
+    )
+    }
+
+    return(
+        <>
+        {showInModal ? 
+        (
+            <>
+            <Button
+                    variant="contained"
+                     onClick={handleOpen}
+                >Create Practice</Button>
+
+            <Modal
+            aria-labelledby="unstyled-modal-title"
+            aria-describedby="unstyled-modal-description"
+            open={open}
+            onClose={handleClose}
+        >
+            <Box 
+                component={Paper} 
+                sx={{ 
+                    width: 800, 
+                    padding: 4,
+                    position: 'fixed',
+                    top: 'calc(50% - 200px)',
+                    left: 'calc(50% - 400px)'
+                 }}>
+                    {returnFormBody()}
+            </Box>
+        </Modal>
+        </>
+        ) : (
+            
+        returnFormBody()
+        )
+      }
         </>
     )
 }

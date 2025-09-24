@@ -4,7 +4,12 @@ const cors = require("cors");    ///cross origin stuff
 const app = express();
 const pool = require("./db");     ////this brings in the Pool stuff in db.js. allows us to run queries with postgres
 
-app.use(cors())
+// Configure CORS with specific options
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost:3001'],  // Allow both common development ports
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(express.json()); ///this allows us to access json data
 app.use(express.static('build'));
 
@@ -192,9 +197,9 @@ app.delete("/practices/:id", async(request, response) => {
 });
 
 
-///////Runs server on port 5000
-app.listen(5000, () => {
-    console.log("Server started on port 5000");
+///////Runs server on port 3001
+app.listen(3001, () => {
+    console.log("Server started on port 3001");
 });
 
 module.exports = pool;

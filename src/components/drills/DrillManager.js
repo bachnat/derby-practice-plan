@@ -9,7 +9,7 @@ const DrillManager = () => {
 
     const getDrills = async() => {
         try {
-            const response = await fetch("http://localhost:5000/drills"); 
+            const response = await fetch("http://localhost:3001/drills"); 
             const jsonData = await response.json();
 
             setDrills(jsonData);
