@@ -10,6 +10,10 @@ const AddEditPractice = ({practice, showInModal, onPracticeUpdate}) => {
     const handleClose = () => setOpen(false);
     const navigate = useNavigate();
 
+    const resetForm = () => {
+        setName('');
+    };
+
     const typing = async event => {
         let text = event.target.value;
 
@@ -49,6 +53,7 @@ const AddEditPractice = ({practice, showInModal, onPracticeUpdate}) => {
             }
 
             onPracticeUpdate('add or edit');
+            resetForm();
         } catch (error) {
             console.error(error.message);
         }

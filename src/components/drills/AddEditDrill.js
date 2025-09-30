@@ -8,6 +8,12 @@ const AddEditDrill = ({drill = null, closeEditor, showInModal, onDrillUpdate}) =
     const [description, setDescription] = useState(drill?.description || "");
     const [duration, setDuration] = useState(drill?.duration || "");
 
+    const resetForm = () => {
+        setName('');
+        setDescription('');
+        setDuration('');
+    };
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -67,6 +73,7 @@ const AddEditDrill = ({drill = null, closeEditor, showInModal, onDrillUpdate}) =
                 closeEditor();
             }
             onDrillUpdate('add or edit');
+            resetForm();
         } catch (error) {
             console.error(error.message);
         }

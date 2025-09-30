@@ -5,8 +5,13 @@ const app = express();
 const pool = require("./db");     ////this brings in the Pool stuff in db.js. allows us to run queries with postgres
 
 // Configure CORS with specific options
+// Allow CORS based on environment variable CORS_ORIGINS (comma-separated),
+// defaulting to localhost origins in development
+const allowedOrigins = (process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
+    : ['http://localhost:3000', 'http://localhost:3001']);
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],  // Allow both common development ports
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type']
 }));
@@ -197,9 +202,10 @@ app.delete("/practices/:id", async(request, response) => {
 });
 
 
-///////Runs server on port 3001
-app.listen(3001, () => {
-    console.log("Server started on port 3001");
+///////Runs server on configured port (DigitalOcean provides PORT)
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
 
 module.exports = pool;
