@@ -1,6 +1,5 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, AppBar } from '@mui/material';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -17,16 +16,20 @@ import AddEditPractice from './components/practices/AddEditPractice.js';
 function App() {
   return (
     <Router>
-          {/* <Typography variant="h1" display="block" gutterBottom>
+      <AppBar elevation={1} className="app-header">
+        <Typography variant="overline" display="block" sx={{ pl: 2 }}>
         Roller Derby Practice Builder
-      </Typography> */}
+      </Typography> 
+      </AppBar>
       <Box sx={{ display: 'flex' }}>
           <MainNav></MainNav>
           <Box 
             component="main"
             sx={{
               flexGrow: 1,
-              padding: [0,6]
+              px: 4,
+              py: 1,
+              pb: 4
             }}>   
               <Routes>
                 <Route exact path='/' element={<PracticeManager/>} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { TextField, Button, Box, Stack, Typography, Modal, Paper } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 

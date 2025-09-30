@@ -1,9 +1,12 @@
 
-import React, { useState } from 'react';
-import { TextField, Button, Box, Stack, Typography, Modal, Paper } from '@mui/material';
+import { useState } from 'react';
+import { TextField, Button, Stack, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-const AddSkill = () => {
+const AddSkill = ({onSkillUpdate}) => {
     const [name, setName] = useState("")
+
+    const navigate = useNavigate();
 
     const addSkill = async e => {
         e.preventDefault();
@@ -16,7 +19,9 @@ const AddSkill = () => {
                 body: JSON.stringify(reqBody)
             });
 
-            window.location = "/skills";
+            navigate('/skills');
+            setName('');
+            onSkillUpdate('add or edit');
         } catch (error) {
             console.error(error.message)
         }
@@ -24,31 +29,23 @@ const AddSkill = () => {
 
     return(
         <>
-        {/* <form onSubmit={addSkill}>
-            <label htmlFor="addSkillInput">Add Skill</label>
-            <input
-            id="addSkillInput"
-            type="text"
-            onChange={e => setName(e.target.value)}
-            />
-            <button
-            disabled={name.length === 0 }
-            >Save</button>
-        </form> */}
+        <Typography variant="h5" mb={2}>Add Skill</Typography>
 
-        <TextField id="ediSkillName" 
-                label="Skill Name" 
-                variant="outlined" 
-                fullWidth
-                value={name}
-                onChange={e => setName(e.target.value)}
-            />
-
-        <Button
-            variant="contained"
-                sx={{ mr: 1 }}
-                onClick={addSkill}
-        >Save</Button>
+        <Stack spacing={2} sx={{ width: 1/4, maxWidth: 'sm' }}>
+            <TextField id="ediSkillName" 
+                    label="Skill Name" 
+                    variant="outlined" 
+                    fullWidth
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                />
+            
+                <Button
+                    variant="contained"
+                        sx={{ mr: 1 }}
+                        onClick={addSkill}
+                >Save</Button>
+        </Stack>
     </>
     )
 }

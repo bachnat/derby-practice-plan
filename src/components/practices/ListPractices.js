@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Button } from '@mui/material';
 
 const ListPractices = ({practices, onPracticeUpdate}) => {

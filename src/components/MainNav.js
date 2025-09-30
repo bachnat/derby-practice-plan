@@ -1,4 +1,3 @@
-import React from 'react';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -18,8 +17,9 @@ return(
         flexShrink: 0,
         '& .MuiDrawer-paper': {
             width: drawerWidth,
-            boxSizing: 'border-box',
+            boxSizing: 'border-box'
         },
+        zIndex: 0
         }}
         variant="permanent"
         anchor="left"
@@ -27,7 +27,7 @@ return(
         <List disablePadding>
             <ListItem disablePadding>
                 <ListItemButton component={RouterLink} to="/">
-                    <ListItemText primary="Practices" />
+                    <ListItemText primary="Practice Plans" />
                 </ListItemButton>
             </ListItem>
             

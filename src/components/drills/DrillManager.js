@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import AddEditDrill from "./AddEditDrill.js";
 import ListDrills from './ListDrills.js';

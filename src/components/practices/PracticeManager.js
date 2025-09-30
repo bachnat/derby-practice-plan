@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Typography, Paper, Button, Link } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
 import ListPractices from './ListPractices';
 import AddEditPractice from './AddEditPractice';
-import { Link as RouterLink } from 'react-router-dom';
 
 const PracticeManager = () => {
     const [practices, setPractices] = useState([])

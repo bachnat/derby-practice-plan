@@ -1,24 +1,9 @@
-import React, { useEffect, useState } from 'react';
-
-import { Container, Paper } from '@mui/material';
 import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Button from '@mui/material/Button';
 
 // import EditSkill from './EditSkill.js';
 
-const ListSkills = () => {
-    const [skills, setSkills] = useState([])
-
-    const getSkills = async() => {
-        try {
-            const response = await fetch("http://localhost:3001/skills"); //this is a GET by default 
-            const jsonData = await response.json();
-            
-            setSkills(jsonData);
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
+const ListSkills = ({skills, onSkillUpdate}) => {
 
     const deleteSkill = async id => {
         try {
@@ -26,16 +11,11 @@ const ListSkills = () => {
                 method: "DELETE"
             });
             
-            setSkills(skills.filter(skill => skill.skill_id !== id)); ///show me all the todos that are not the id we just deleted
-                ///is there a better way to do this? just rerender the list whenever it changes? also so the "addskill" guy doesn't need to refresh the page
+            onSkillUpdate('delete skill');
         } catch (error) {
             console.error(error.message);
         }
     };
-
-    useEffect(() => {
-        getSkills();
-    }, []);
 
     return(
         <>

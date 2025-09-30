@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, Chip, Stack } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Edit, Close } from '@mui/icons-material';
 
