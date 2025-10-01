@@ -1,5 +1,9 @@
 const express = require("express");
 const cors = require("cors");    ///cross origin stuff
+const dns = require("dns");
+
+// Prefer IPv4 first to avoid IPv6 egress issues in some hosts
+dns.setDefaultResultOrder('ipv4first');
 
 const app = express();
 const { Pool } = require("pg");
@@ -49,6 +53,7 @@ app.post("/drills", async(request, response) => {
         response.json(newDrill.rows[0]);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to create drill', details: err.message });
     }
 }); 
 
@@ -60,6 +65,7 @@ app.get("/drills", async(request, response) => {
         
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to fetch drills', details: err.message });
     } 
 });
 
@@ -70,6 +76,7 @@ app.get("/drills/:id", async(request, response) => {
         response.json(drill.rows[0]);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to fetch drill', details: err.message });
     }
 });
 
@@ -85,6 +92,7 @@ app.put("/drills/:id", async(request, response) => {
         response.json("Drill updated.");
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to update drill', details: err.message });
     }
 });
 
@@ -95,6 +103,7 @@ app.delete("/drills/:id", async(request, response) => {
         response.json("Drill deleted.");
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to delete drill', details: err.message });
     }
 });
 
@@ -109,6 +118,7 @@ app.post("/skills", async(request, response) => {
         response.json(newSkill.rows[0]);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to create skill', details: err.message });
     }
 }); 
 
@@ -118,6 +128,7 @@ app.get("/skills", async(request, response) => {
         response.json(allSkills.rows);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to fetch skills', details: err.message });
     } 
 });
 
@@ -128,6 +139,7 @@ app.get("/skills/:id", async(request, response) => {
         response.json(skill.rows[0]);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to fetch skill', details: err.message });
     }
 });
 
@@ -140,6 +152,7 @@ app.put("/skills/:id", async(request, response) => {
         response.json("Skill updated.");
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to update skill', details: err.message });
     }
 });
 
@@ -150,6 +163,7 @@ app.delete("/skills/:id", async(request, response) => {
         response.json("Skill deleted.");
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to delete skill', details: err.message });
     }
 });
 
@@ -167,6 +181,7 @@ app.post("/practices", async(request, response) => {
         response.json(newPractice.rows[0]);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to create practice', details: err.message });
     }
 }); 
 
@@ -178,6 +193,7 @@ app.get("/practices", async(request, response) => {
         
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to fetch practices', details: err.message });
     } 
 });
 
@@ -188,6 +204,7 @@ app.get("/practices/:id", async(request, response) => {
         response.json(practice.rows[0]);
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to fetch practice', details: err.message });
     }
 });
 
@@ -213,6 +230,7 @@ app.delete("/practices/:id", async(request, response) => {
         response.json("Practice deleted.");
     } catch (err) {
         console.error(err.message);
+        return response.status(500).json({ error: 'Failed to delete practice', details: err.message });
     }
 });
 
