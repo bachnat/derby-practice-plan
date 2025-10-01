@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "npx react-scripts start",
-    "startlocal": "npm run start & npx nodemon index.js",
+    "startlocal": "npm run start & node --env-file=.env index.js",
     "build": "npx react-scripts build",
     "test": "npx react-scripts test",
     "eject": "npx react-scripts eject"

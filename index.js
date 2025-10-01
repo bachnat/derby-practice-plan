@@ -2,7 +2,22 @@ const express = require("express");
 const cors = require("cors");    ///cross origin stuff
 
 const app = express();
-const pool = require("./db");     ////this brings in the Pool stuff in db.js. allows us to run queries with postgres
+const { Pool } = require("pg");
+
+// Prefer DATABASE_URL from environment (works on DO + local via .env),
+// and fall back to local ./db only if not provided.
+let pool;
+if (process.env.DATABASE_URL) {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    });
+} else {
+    // this brings in the Pool from db.js for local dev without DATABASE_URL
+    // keep db.js in .gitignore so credentials are not tracked
+    // eslint-disable-next-line import/no-unresolved
+    pool = require("./db");
+}
 
 // Configure CORS with specific options
 // Allow CORS based on environment variable CORS_ORIGINS (comma-separated),
