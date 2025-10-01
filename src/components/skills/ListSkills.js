@@ -7,7 +7,7 @@ const ListSkills = ({skills, onSkillUpdate}) => {
 
     const deleteSkill = async id => {
         try {
-            const deleteReq = await fetch(`http://localhost:3001/skills/${id}`,{
+            const deleteReq = await fetch(`/skills/${id}`,{
                 method: "DELETE"
             });
             

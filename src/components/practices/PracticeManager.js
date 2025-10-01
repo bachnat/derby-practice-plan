@@ -9,7 +9,7 @@ const PracticeManager = () => {
 
     const getPractices = async() => {
         try {
-            const response = await fetch("http://localhost:3001/practices"); 
+            const response = await fetch("/practices"); 
             const jsonData = await response.json();
 
             setPractices(jsonData);

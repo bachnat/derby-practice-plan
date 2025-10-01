@@ -19,7 +19,7 @@ const DrillDetail = ({drill, closeDrillDetail, onDrillUpdate}) => {
 
     const fetchUpdatedDrill = async(drill_id) => {
         try {
-            const response = await fetch(`http://localhost:3001/drills/${drill_id}`); 
+            const response = await fetch(`/drills/${drill_id}`); 
             const jsonData = await response.json();
 
             return jsonData;
