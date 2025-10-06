@@ -32,14 +32,14 @@ const AddEditPractice = ({practice, showInModal, onPracticeUpdate}) => {
         try {
             if(practice){
                 // edit existing practice
-                const response = await fetch(`/practices/${practice.practice_id}`, {
+                const response = await fetch(`/api/practices/${practice.practice_id}`, {
                     method: "PUT",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(reqBody)
                 }); 
             } else {
                 //add new practice
-                const response = await fetch("/practices",{
+                const response = await fetch("/api/practices",{
                     method: 'POST',
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(reqBody)
@@ -61,7 +61,7 @@ const AddEditPractice = ({practice, showInModal, onPracticeUpdate}) => {
 
     const deletepractice = async id => {
         try {
-            const deleteReq = await fetch(`/practices/${id}`,{
+            const deleteReq = await fetch(`/api/practices/${id}`,{
                 method: "DELETE"
             });
             

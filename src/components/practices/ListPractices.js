@@ -3,7 +3,7 @@ import { TableContainer, Table, TableBody, TableCell, TableHead, TableRow, Butto
 const ListPractices = ({practices, onPracticeUpdate}) => {
     const deletePractice = async id => {
         try {
-            const deleteReq = await fetch(`/practices/${id}`,{
+            const deleteReq = await fetch(`/api/practices/${id}`,{
                 method: "DELETE"
             });
             

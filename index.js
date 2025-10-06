@@ -5,6 +5,8 @@ const dns = require("dns");
 // Prefer IPv4 first to avoid IPv6 egress issues in some hosts
 dns.setDefaultResultOrder('ipv4first');
 
+const path = require('path');
+
 const app = express();
 const { Pool } = require("pg");
 
@@ -42,7 +44,7 @@ app.use(express.static('build'));
 //////////// DRILLS
 ////////////////////////////////////
 //create a drill
-app.post("/drills", async(request, response) => {
+app.post("/api/drills", async(request, response) => {
     try{
         const { name } = request.body.name;
         const { description } = request.body.description;
@@ -57,7 +59,7 @@ app.post("/drills", async(request, response) => {
     }
 }); 
 
-app.get("/drills", async(request, response) => {
+app.get("/api/drills", async(request, response) => {
     try{
         const allDrills = await pool.query("SELECT * FROM drills");
         console.log(allDrills);
@@ -69,7 +71,7 @@ app.get("/drills", async(request, response) => {
     } 
 });
 
-app.get("/drills/:id", async(request, response) => {
+app.get("/api/drills/:id", async(request, response) => {
     try{
         const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
         const drill =  await pool.query("SELECT * FROM drills WHERE drill_id = $1", [id]);
@@ -81,7 +83,7 @@ app.get("/drills/:id", async(request, response) => {
 });
 
 /////// EDIT 
-app.put("/drills/:id", async(request, response) => {
+app.put("/api/drills/:id", async(request, response) => {
     try{
         const { id } = request.params; /// notice this is the same from the GET code, because we need the ID to get it 
         const { name } = request.body.name; /// notice this is the same from the POST code, because we're sending a new name 
@@ -96,7 +98,7 @@ app.put("/drills/:id", async(request, response) => {
     }
 });
 
-app.delete("/drills/:id", async(request, response) => {
+app.delete("/api/drills/:id", async(request, response) => {
     try{
         const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
         const deleteDrill =  await pool.query("DELETE FROM drills WHERE drill_id = $1", [id]);
@@ -110,7 +112,7 @@ app.delete("/drills/:id", async(request, response) => {
 ////////////////////////////////////
 //////////// SKILLS
 ////////////////////////////////////
-app.post("/skills", async(request, response) => {
+app.post("/api/skills", async(request, response) => {
     try{
         const { name } = request.body;
 
@@ -122,7 +124,7 @@ app.post("/skills", async(request, response) => {
     }
 }); 
 
-app.get("/skills", async(request, response) => {
+app.get("/api/skills", async(request, response) => {
     try{
         const allSkills = await pool.query("SELECT * FROM skills");
         response.json(allSkills.rows);
@@ -132,7 +134,7 @@ app.get("/skills", async(request, response) => {
     } 
 });
 
-app.get("/skills/:id", async(request, response) => {
+app.get("/api/skills/:id", async(request, response) => {
     try{
         const { id } = request.params;
         const skill =  await pool.query("SELECT * FROM skills WHERE skill_id = $1", [id]);
@@ -143,7 +145,7 @@ app.get("/skills/:id", async(request, response) => {
     }
 });
 
-app.put("/skills/:id", async(request, response) => {
+app.put("/api/skills/:id", async(request, response) => {
     try{
         const { id } = request.params; 
         const { name } = request.body; 
@@ -156,7 +158,7 @@ app.put("/skills/:id", async(request, response) => {
     }
 });
 
-app.delete("/skills/:id", async(request, response) => {
+app.delete("/api/skills/:id", async(request, response) => {
     try{
         const { id } = request.params; 
         const deleteSkill =  await pool.query("DELETE FROM skills WHERE skill_id = $1", [id]);
@@ -171,7 +173,7 @@ app.delete("/skills/:id", async(request, response) => {
 //////////// PRACTICES
 ////////////////////////////////////
 
-app.post("/practices", async(request, response) => {
+app.post("/api/practices", async(request, response) => {
     try{
         const { name } = request.body.name;
         // const { description } = request.body.description;
@@ -185,7 +187,7 @@ app.post("/practices", async(request, response) => {
     }
 }); 
 
-app.get("/practices", async(request, response) => {
+app.get("/api/practices", async(request, response) => {
     try{
         const allPractices = await pool.query("SELECT * FROM practices");
         console.log(allPractices);
@@ -197,7 +199,7 @@ app.get("/practices", async(request, response) => {
     } 
 });
 
-app.get("/practices/:id", async(request, response) => {
+app.get("/api/practices/:id", async(request, response) => {
     try{
         const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
         const practice =  await pool.query("SELECT * FROM practices WHERE practice_id = $1", [id]);
@@ -223,7 +225,7 @@ app.get("/practices/:id", async(request, response) => {
 //     }
 // });
 
-app.delete("/practices/:id", async(request, response) => {
+app.delete("/api/practices/:id", async(request, response) => {
     try{
         const { id } = request.params; ////this gets the id from the URL in /todos/:id (which is in request.params)
         const deletePractice =  await pool.query("DELETE FROM practices WHERE practice_id = $1", [id]);
@@ -234,6 +236,10 @@ app.delete("/practices/:id", async(request, response) => {
     }
 });
 
+// SPA fallback 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
 
 ///////Runs server on configured port (DigitalOcean provides PORT)
 const PORT = process.env.PORT || 3001;

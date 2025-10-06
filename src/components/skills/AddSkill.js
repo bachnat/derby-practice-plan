@@ -13,7 +13,7 @@ const AddSkill = ({onSkillUpdate}) => {
         
         try {
             const reqBody= { name }
-            const response = await fetch("/skills",{
+            const response = await fetch("/api/skills",{
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(reqBody)

@@ -11,7 +11,7 @@ const SkillManager = () => {
     
     const getSkills = async() => {
         try {
-            const response = await fetch("/skills"); 
+            const response = await fetch("/api/skills"); 
             const jsonData = await response.json();
             
             setSkills(jsonData);
